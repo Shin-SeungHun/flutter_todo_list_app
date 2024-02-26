@@ -41,13 +41,11 @@ class TodoListScreen extends StatelessWidget {
                 decorationThickness: 3.0,
               ),
             ),
-            // subtitle: Text(todo.dateTime.toString()),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
-                  onPressed: () {
-                  },
+                  onPressed: () {},
                   icon: const Icon(Icons.edit),
                 ),
                 IconButton(
