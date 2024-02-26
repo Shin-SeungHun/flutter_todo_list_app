@@ -27,8 +27,37 @@ class TodoListScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           final todo = viewModel.todoList[index];
           return ListTile(
-            title: Text(todo.title.toString()),
-            subtitle: Text(todo.dateTime.toString()),
+            leading: Checkbox(
+              value: todo.isDone,
+              onChanged: (bool? value) {
+                viewModel.isDone(index: index);
+              },
+            ),
+            title: Text(
+              todo.title.toString(),
+              style: TextStyle(
+                decoration: todo.isDone ? TextDecoration.lineThrough : null,
+                decorationColor: Colors.grey,
+                decorationThickness: 3.0,
+              ),
+            ),
+            // subtitle: Text(todo.dateTime.toString()),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  onPressed: () {
+                  },
+                  icon: const Icon(Icons.edit),
+                ),
+                IconButton(
+                  onPressed: () {
+                    viewModel.delete(index: index);
+                  },
+                  icon: const Icon(Icons.delete),
+                ),
+              ],
+            ),
           );
         },
       ),

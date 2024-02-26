@@ -7,11 +7,26 @@ class TodoViewModel extends ChangeNotifier {
   List<TodoModel> todoList = [];
 
   Future<void> add({required TodoModel todo}) async {
-    await _repository.add(todo: todo);
     todoList.add(todo);
     print(todoList);
 
     notifyListeners();
   }
 
+  Future<void> isDone({required int index}) async {
+    todoList[index].isDone = !todoList[index].isDone;
+    notifyListeners();
+  }
+
+  Future<void> delete({required int index}) async {
+    todoList.removeAt(index);
+    notifyListeners();
+  }
+
+  void update({required int index, required TodoModel updatedTodo}) {
+    if (index >= 0 && index < todoList.length) {
+      todoList[index] = updatedTodo;
+      notifyListeners(); // 상태 변경 알림
+    }
+  }
 }
