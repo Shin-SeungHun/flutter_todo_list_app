@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_list_app/di/di_set_up.dart';
+import 'package:flutter_todo_list_app/router/routes.dart';
 
 void main() {
+  diSetup();
   runApp(const MyApp());
 }
 
@@ -9,7 +12,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       title: 'todo list',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
