@@ -1,22 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todo_list_app/ui/todo_view_model.dart';
+import 'package:flutter_todo_list_app/ui/list/todo_list_view_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class TodoListScreen extends StatelessWidget {
+class TodoListScreen extends StatefulWidget {
   const TodoListScreen({super.key});
 
   @override
+  State<TodoListScreen> createState() => _TodoListScreenState();
+}
+
+class _TodoListScreenState extends State<TodoListScreen> {
+  @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<TodoViewModel>();
+    final viewModel = context.watch<TodoListViewModel>();
     return Scaffold(
       appBar: AppBar(
         leading: const FlutterLogo(),
         title: const Text('Todo List'),
         actions: [
           IconButton(
+            onPressed: () async {
+              await viewModel.getTodoList();
+            },
+            icon: const Icon(Icons.refresh),
+          ),
+          IconButton(
             onPressed: () {
-              context.push('/add');
+              context.push('/insert');
             },
             icon: const Icon(Icons.add),
           ),
@@ -30,7 +41,7 @@ class TodoListScreen extends StatelessWidget {
             leading: Checkbox(
               value: todo.isDone,
               onChanged: (bool? value) {
-                viewModel.isDone(index: index);
+                // viewModel.isDone(index: index);
               },
             ),
             title: Text(
@@ -45,12 +56,16 @@ class TodoListScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    await context.push('/update', extra: todo);
+                  },
                   icon: const Icon(Icons.edit),
                 ),
                 IconButton(
-                  onPressed: () {
-                    viewModel.delete(index: index);
+                  onPressed: () async {
+                    await viewModel.deleteTodoList(todo: todo);
+
+                    setState(() {});
                   },
                   icon: const Icon(Icons.delete),
                 ),
