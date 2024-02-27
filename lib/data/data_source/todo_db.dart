@@ -53,11 +53,13 @@ class TodoDb {
   }
 
   Future<void> checkTodoList({required TodoModel todo}) async {
+    final int isDoneValue = todo.isDone ? 1 : 0;
     await db.update(
       'todo',
-      todo.toJson(),
+      {'isDone': isDoneValue},
       where: 'id = ?',
       whereArgs: [todo.id],
     );
+    print('Todo checked: ${todo.isDone}');
   }
 }
