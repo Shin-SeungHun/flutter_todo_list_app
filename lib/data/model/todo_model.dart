@@ -9,7 +9,7 @@ class TodoModel{
     this.id,
     required this.title,
     required this.dateTime,
-정    this.isDone = true,
+    this.isDone = true,
   });
 
   @override
