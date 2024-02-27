@@ -9,7 +9,7 @@ class TodoModel{
     this.id,
     required this.title,
     required this.dateTime,
-    this.isDone = false,
+정    this.isDone = true,
   });
 
   @override
@@ -27,18 +27,18 @@ class TodoModel{
 
   @override
   String toString() {
-    return 'Todo{ id: $id, content: $title, dateTime: $dateTime, isDone: $isDone,}';
+    return 'Todo{ id: $id, title: $title, dateTime: $dateTime, isDone: $isDone,}';
   }
 
   TodoModel copyWith({
     int? id,
-    String? content,
+    String? title,
     DateTime? dateTime,
     bool? isDone,
   }) {
     return TodoModel(
       id: id ?? this.id,
-      title: content ?? this.title,
+      title: title ?? this.title,
       dateTime: dateTime ?? this.dateTime,
       isDone: isDone ?? this.isDone,
     );
@@ -47,19 +47,18 @@ class TodoModel{
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'content': title,
-      'dateTime': dateTime,
-      'isDone': isDone,
+      'title': title,
+      'dateTime': dateTime.toIso8601String(),
+      'isDone': isDone ? 0 : 1,
     };
   }
 
   factory TodoModel.fromJson(Map<String, dynamic> json) {
     return TodoModel(
-      id: json['id'] as int,
-      title: json['content'] as String,
-      dateTime: json['dateTime'] as DateTime,
-      isDone: json['isDone'] as bool,
-    );
+      id: json['id'] as int?,
+      title: json['title'] as String,
+      dateTime: DateTime.parse(json['dateTime'] as String,
+    ), isDone: (json['isDone'] as int) == 1);
   }
 
 //</editor-fold>
