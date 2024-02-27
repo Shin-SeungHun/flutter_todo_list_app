@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_todo_list_app/di/di_set_up.dart';
 import 'package:flutter_todo_list_app/router/routes.dart';
 
-void main() {
-  diSetup();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await diSetup();
   runApp(const MyApp());
 }
 
