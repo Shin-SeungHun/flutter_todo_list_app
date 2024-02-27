@@ -26,8 +26,21 @@ class TodoListViewModel extends ChangeNotifier {
     return await _repository.getTodoListById(id: id);
   }
 
+  Future<void> insertTodoList({required TodoModel todo}) async {
+    await _repository.insertTodoList(todo: todo);
+    notifyListeners();
+  }
+
   Future<void> deleteTodoList({required TodoModel todo}) async {
     await _repository.deleteTodoList(todo: todo);
+    _todoList.remove(todo);
+    notifyListeners();
+  }
+
+  Future<void> checkTodoList({required TodoModel todo}) async{
+    await _repository.checkTodoList(todo: todo);
+    print(_todoList.map((e) => e.isDone));
+
     notifyListeners();
   }
 }

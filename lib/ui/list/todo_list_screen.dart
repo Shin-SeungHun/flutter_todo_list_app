@@ -13,67 +13,72 @@ class TodoListScreen extends StatefulWidget {
 class _TodoListScreenState extends State<TodoListScreen> {
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<TodoListViewModel>();
-    return Scaffold(
-      appBar: AppBar(
-        leading: const FlutterLogo(),
-        title: const Text('Todo List'),
-        actions: [
-          IconButton(
-            onPressed: () async {
-              await viewModel.getTodoList();
-            },
-            icon: const Icon(Icons.refresh),
-          ),
-          IconButton(
-            onPressed: () {
-              context.push('/insert');
-            },
-            icon: const Icon(Icons.add),
-          ),
-        ],
-      ),
-      body: ListView.builder(
-        itemCount: viewModel.todoList.length,
-        itemBuilder: (context, index) {
-          final todo = viewModel.todoList[index];
-          return ListTile(
-            leading: Checkbox(
-              value: todo.isDone,
-              onChanged: (bool? value) {
-                // viewModel.isDone(index: index);
-              },
-            ),
-            title: Text(
-              todo.title.toString(),
-              style: TextStyle(
-                decoration: todo.isDone ? TextDecoration.lineThrough : null,
-                decorationColor: Colors.grey,
-                decorationThickness: 3.0,
+    return Consumer(
+      builder: (BuildContext context, TodoListViewModel viewModel, Widget? child) {
+        return Scaffold(
+          appBar: AppBar(
+            leading: const FlutterLogo(),
+            title: const Text('Todo List'),
+            actions: [
+              IconButton(
+                onPressed: () async {
+                  await viewModel.getTodoList();
+                },
+                icon: const Icon(Icons.refresh),
               ),
-            ),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  onPressed: () async {
-                    await context.push('/update', extra: todo);
-                  },
-                  icon: const Icon(Icons.edit),
-                ),
-                IconButton(
-                  onPressed: () async {
-                    await viewModel.deleteTodoList(todo: todo);
+              IconButton(
+                onPressed: () {
+                  context.go('/insert');
+                },
+                icon: const Icon(Icons.add),
+              ),
+            ],
+          ),
+          body: ListView.builder(
+            itemCount: viewModel.todoList.length,
+            itemBuilder: (context, index) {
+              final todo = viewModel.todoList[index];
+              return ListTile(
+                leading: Checkbox(
+                  value: todo.isDone,
+                  onChanged: (bool? value) async {
+                    setState(() {
+                      todo.isDone = value ?? false;
+                    });
+                   await viewModel.checkTodoList(todo: todo);
 
-                    setState(() {});
                   },
-                  icon: const Icon(Icons.delete),
                 ),
-              ],
-            ),
-          );
-        },
-      ),
+                title: Text(
+                  todo.title.toString(),
+                  style: TextStyle(
+                    decoration: todo.isDone ? TextDecoration.lineThrough : null,
+                    decorationColor: Colors.grey,
+                    decorationThickness: 3.0,
+                  ),
+                ),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      onPressed: () async {
+                        await context.push('/update', extra: todo);
+                      },
+                      icon: const Icon(Icons.edit),
+                    ),
+                    IconButton(
+                      onPressed: ()  {
+                         viewModel.deleteTodoList(todo: todo);
+                      },
+                      icon: const Icon(Icons.delete),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }

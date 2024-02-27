@@ -13,21 +13,33 @@ import 'package:provider/provider.dart';
 
 final router = GoRouter(initialLocation: '/', routes: [
   GoRoute(
-      path: '/',
-      builder: (context, state) {
-        return ChangeNotifierProvider(
-          create: (context) => GetIt.instance<TodoListViewModel>(),
-          child: const TodoListScreen(),
-        );
-      }),
-  GoRoute(
-      path: '/insert',
-      builder: (context, state) {
-        return ChangeNotifierProvider(
-          create: (context) => GetIt.instance<TodoInsertViewModel>(),
-          child: const TodoInsertScreen(),
-        );
-      }),
+    path: '/',
+    builder: (context, state) {
+      return ChangeNotifierProvider<TodoListViewModel>(
+        create: (context) => GetIt.instance<TodoListViewModel>(),
+        child: const TodoListScreen(),
+      );
+    },
+    routes: [
+      GoRoute(
+        path: 'insert',
+        builder: (context, state) {
+          return ChangeNotifierProvider<TodoListViewModel>(
+            create: (context) => GetIt.instance<TodoListViewModel>(),
+            child: const TodoInsertScreen(),
+          );
+        },
+      ),
+    ],
+  ),
+  // GoRoute(
+  //     path: '/insert',
+  //     builder: (context, state) {
+  //       return ChangeNotifierProvider(
+  //         create: (context) => GetIt.instance<TodoInsertViewModel>(),
+  //         child: const TodoInsertScreen(),
+  //       );
+  //     }),
   GoRoute(
       path: '/update',
       builder: (context, state) {

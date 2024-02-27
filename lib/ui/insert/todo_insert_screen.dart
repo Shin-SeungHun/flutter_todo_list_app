@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_list_app/data/model/todo_model.dart';
-import 'package:flutter_todo_list_app/ui/insert/todo_insert_view_model.dart';
+import 'package:flutter_todo_list_app/ui/list/todo_list_view_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +22,7 @@ class _TodoInsertScreenState extends State<TodoInsertScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<TodoInsertViewModel>();
+    final viewModel = context.watch<TodoListViewModel>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('add'),
@@ -43,12 +43,12 @@ class _TodoInsertScreenState extends State<TodoInsertScreen> {
           ),
           const Spacer(),
           ElevatedButton(
-            onPressed: () async {
+            onPressed: () {
               TodoModel todo = TodoModel(
                 title: _textEditingController.text,
                 dateTime: DateTime.now(),
               );
-              await viewModel.insertTodoList(todo: todo);
+              viewModel.insertTodoList(todo: todo);
               context.go('/');
             },
             child: const Text('저장'),
