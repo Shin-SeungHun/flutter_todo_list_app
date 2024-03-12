@@ -1,4 +1,3 @@
-import 'package:flutter_todo_list_app/data/data_source/todo_db.dart';
 import 'package:flutter_todo_list_app/data/model/todo_model.dart';
 import 'package:flutter_todo_list_app/data/repository/todo_repository_impl.dart';
 import 'package:flutter_todo_list_app/ui/insert/todo_insert_screen.dart';
@@ -24,29 +23,21 @@ final router = GoRouter(initialLocation: '/', routes: [
       GoRoute(
         path: 'insert',
         builder: (context, state) {
-          return ChangeNotifierProvider<TodoListViewModel>(
-            create: (context) => GetIt.instance<TodoListViewModel>(),
+          return ChangeNotifierProvider<TodoInsertViewModel>(
+            create: (context) => GetIt.instance<TodoInsertViewModel>(),
             child: const TodoInsertScreen(),
           );
         },
       ),
+      GoRoute(
+          path: 'update',
+          builder: (context, state) {
+            final TodoModel todo = state.extra as TodoModel;
+            return ChangeNotifierProvider(
+              create: (context) => TodoUpdateViewModel(todo: todo, repository: GetIt.instance<TodoRepositoryImpl>()),
+              child: const TodoUpdateScreen(),
+            );
+          }),
     ],
   ),
-  // GoRoute(
-  //     path: '/insert',
-  //     builder: (context, state) {
-  //       return ChangeNotifierProvider(
-  //         create: (context) => GetIt.instance<TodoInsertViewModel>(),
-  //         child: const TodoInsertScreen(),
-  //       );
-  //     }),
-  GoRoute(
-      path: '/update',
-      builder: (context, state) {
-        final TodoModel todo = state.extra as TodoModel;
-        return ChangeNotifierProvider(
-          create: (context) => TodoUpdateViewModel(todo: todo, repository: GetIt.instance<TodoRepositoryImpl>()),
-          child: const TodoUpdateScreen(),
-        );
-      }),
 ]);
