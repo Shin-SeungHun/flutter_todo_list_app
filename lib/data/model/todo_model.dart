@@ -5,7 +5,7 @@ part 'todo_model.g.dart';
 @HiveType(typeId: 0)
 class TodoModel extends HiveObject {
   @HiveField(0)
-  int? id;
+  int id;
   @HiveField(1)
   String title;
   @HiveField(2)
@@ -15,7 +15,7 @@ class TodoModel extends HiveObject {
 
 //<editor-fold desc="Data Methods">
   TodoModel({
-    this.id,
+    required this.id,
     required this.title,
     required this.dateTime,
     this.isDone = false,
