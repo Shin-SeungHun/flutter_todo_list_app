@@ -10,5 +10,6 @@ abstract interface class TodoRepository {
   Future<void> updateTodoList({required TodoModel todo});
 
   Future<void> deleteTodoList({required TodoModel todo});
+
   Future<void> checkTodoList({required TodoModel todo});
 }

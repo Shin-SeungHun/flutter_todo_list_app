@@ -4,6 +4,7 @@ import 'package:flutter_todo_list_app/data/repository/todo_repository.dart';
 
 class TodoRepositoryImpl implements TodoRepository {
   final TodoDb db;
+
   TodoRepositoryImpl({
     required this.db,
   });
@@ -20,21 +21,22 @@ class TodoRepositoryImpl implements TodoRepository {
 
   @override
   Future<void> insertTodoList({required TodoModel todo}) async {
-    await db.insertTodoList(todo: todo);
-  }
-
-  @override
-  Future<void> updateTodoList({required TodoModel todo}) async {
-    await db.updateTodoList(todo: todo);
+    return await db.insertTodoList(todo: todo);
   }
 
   @override
   Future<void> deleteTodoList({required TodoModel todo}) async {
-    await db.deleteTodoList(todo: todo);
+    return await db.deleteTodoList(todo: todo);
   }
 
   @override
-  Future<void> checkTodoList({required TodoModel todo}) async{
-    await db.checkTodoList(todo: todo);
+  Future<void> updateTodoList({required TodoModel todo}) async {
+    return await db.updateTodoList(todo: todo);
+  }
+
+  @override
+  Future<void> checkTodoList({required TodoModel todo}) {
+    // TODO: implement checkTodoList
+    throw UnimplementedError();
   }
 }
