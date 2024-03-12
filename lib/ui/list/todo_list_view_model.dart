@@ -32,7 +32,7 @@ class TodoListViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> checkTodoList({required TodoModel todo}) async{
+  Future<void> checkTodoList({required TodoModel todo}) async {
     await _repository.checkTodoList(todo: todo);
     print(_todoList.map((e) => e.isDone));
 

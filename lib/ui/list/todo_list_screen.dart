@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_list_app/data/model/todo_model.dart';
 import 'package:flutter_todo_list_app/ui/list/todo_list_view_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +38,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
           body: ListView.builder(
             itemCount: viewModel.todoList.length,
             itemBuilder: (context, index) {
-              final todo = viewModel.todoList[index];
+              final TodoModel todo = viewModel.todoList[index];
               return ListTile(
                 leading: Checkbox(
                   value: todo.isDone,
@@ -45,7 +46,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
                     setState(() {
                       todo.isDone = value ?? true;
                     });
-                    // await viewModel.checkTodoList(todo: todo);
+                    await viewModel.checkTodoList(todo: todo);
                   },
                 ),
                 title: GestureDetector(
