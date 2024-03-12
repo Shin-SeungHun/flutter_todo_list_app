@@ -29,19 +29,17 @@ class TodoDb {
 
   /// todo list 업데이트
   Future<void> updateTodoList({required TodoModel todo}) async {
-    if (todo.id != null) {
-      final TodoModel getTodo = db.values.firstWhere((item) => item.id == todo.id);
-      final int index = db.values.toList().indexOf(getTodo);
+    final TodoModel getTodo = db.values.firstWhere((item) => item.id == todo.id);
+    final int index = db.values.toList().indexOf(getTodo);
 
-      getTodo
-        ..id = todo.id
-        ..title = todo.title
-        ..dateTime = todo.dateTime
-        ..isDone = todo.isDone;
+    getTodo
+      ..id = todo.id
+      ..title = todo.title
+      ..dateTime = todo.dateTime
+      ..isDone = todo.isDone;
 
-      await db.putAt(index, getTodo);
+    await db.putAt(index, getTodo);
     }
-  }
 
   /// todo list 삭제
   Future<void> deleteTodoList({required TodoModel todo}) async {
