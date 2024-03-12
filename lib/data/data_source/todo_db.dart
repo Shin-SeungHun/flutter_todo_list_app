@@ -8,11 +8,6 @@ class TodoDb {
     required this.db,
   });
 
-  Future<void> init() async {
-    await Hive.initFlutter();
-    Hive.registerAdapter(TodoModelAdapter());
-    db = await Hive.openBox<TodoModel>('todoList.db');
-  }
 
   /// todo list 목록
   Future<List<TodoModel>> getTodoList() async {
