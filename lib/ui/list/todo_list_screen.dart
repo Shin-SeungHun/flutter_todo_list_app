@@ -43,9 +43,9 @@ class _TodoListScreenState extends State<TodoListScreen> {
                   value: todo.isDone,
                   onChanged: (bool? value) async {
                     setState(() {
-                      todo.isDone = value ?? false;
+                      todo.isDone = value ?? true;
                     });
-                    await viewModel.checkTodoList(todo: todo);
+                    // await viewModel.checkTodoList(todo: todo);
                   },
                 ),
                 title: GestureDetector(
