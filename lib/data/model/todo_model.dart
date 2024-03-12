@@ -5,11 +5,11 @@ part 'todo_model.g.dart';
 @HiveType(typeId: 0)
 class TodoModel extends HiveObject {
   @HiveField(0)
-  final int? id;
+  int? id;
   @HiveField(1)
-  final String title;
+  String title;
   @HiveField(2)
-  final DateTime dateTime;
+  DateTime dateTime;
   @HiveField(3)
   bool isDone;
 
