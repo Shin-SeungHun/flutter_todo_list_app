@@ -12,4 +12,6 @@ abstract interface class TodoRepository {
   Future<void> deleteTodoList({required TodoModel todo});
 
   Future<void> checkTodoList({required TodoModel todo});
+
+  int uniqueTodoId();
 }

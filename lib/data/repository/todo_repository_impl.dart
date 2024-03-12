@@ -39,4 +39,9 @@ class TodoRepositoryImpl implements TodoRepository {
     // TODO: implement checkTodoList
     throw UnimplementedError();
   }
+
+  @override
+  int uniqueTodoId() {
+    return db.findUniqueTodoId();
+  }
 }
