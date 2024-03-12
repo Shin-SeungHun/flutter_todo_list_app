@@ -45,6 +45,7 @@ class _TodoInsertScreenState extends State<TodoInsertScreen> {
           ElevatedButton(
             onPressed: () {
               TodoModel todo = TodoModel(
+                id: viewModel.uniqueTodoId(),
                 title: _textEditingController.text,
                 dateTime: DateTime.now(),
               );
