@@ -1,7 +1,16 @@
-class TodoModel{
+import 'package:hive/hive.dart';
+
+part 'todo_model.g.dart';
+
+@HiveType(typeId: 0)
+class TodoModel extends HiveObject {
+  @HiveField(0)
   int? id;
+  @HiveField(1)
   String title;
+  @HiveField(2)
   DateTime dateTime;
+  @HiveField(3)
   bool isDone;
 
 //<editor-fold desc="Data Methods">
@@ -55,10 +64,12 @@ class TodoModel{
 
   factory TodoModel.fromJson(Map<String, dynamic> json) {
     return TodoModel(
-      id: json['id'] as int?,
-      title: json['title'] as String,
-      dateTime: DateTime.parse(json['dateTime'] as String,
-    ), isDone: (json['isDone'] as int) == 1);
+        id: json['id'] as int?,
+        title: json['title'] as String,
+        dateTime: DateTime.parse(
+          json['dateTime'] as String,
+        ),
+        isDone: (json['isDone'] as int) == 1);
   }
 
 //</editor-fold>
