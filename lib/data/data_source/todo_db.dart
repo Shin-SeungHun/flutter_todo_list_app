@@ -39,16 +39,10 @@ class TodoDb {
     await db.delete(todo.id);
   }
 
-// Future<void> checkTodoList({required TodoModel todo}) async {
-//   final int isDoneValue = todo.isDone ? 1 : 0;
-//   await db.update(
-//     'todo',
-//     {'isDone': isDoneValue},
-//     where: 'id = ?',
-//     whereArgs: [todo.id],
-//   );
-//   print('Todo checked: ${todo.isDone}');
-// }
+  Future<void> checkTodoList({required TodoModel todo}) async {
+    await db.put(todo.id, todo);
+    print('Todo checked: ${todo.isDone}');
+  }
 
   /// id 리스트를 조회하여, 가장 큰수의 +1 한 값을 id로 생성.
   int findUniqueTodoId() {
