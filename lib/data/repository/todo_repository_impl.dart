@@ -35,9 +35,8 @@ class TodoRepositoryImpl implements TodoRepository {
   }
 
   @override
-  Future<void> checkTodoList({required TodoModel todo}) {
-    // TODO: implement checkTodoList
-    throw UnimplementedError();
+  Future<void> checkTodoList({required TodoModel todo}) async {
+    return await db.checkTodoList(todo: todo);
   }
 
   @override
