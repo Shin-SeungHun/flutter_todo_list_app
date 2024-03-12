@@ -5,11 +5,11 @@ part 'todo_model.g.dart';
 @HiveType(typeId: 0)
 class TodoModel extends HiveObject {
   @HiveField(0)
-  int? id;
+  final int? id;
   @HiveField(1)
-  String title;
+  final String title;
   @HiveField(2)
-  DateTime dateTime;
+  final DateTime dateTime;
   @HiveField(3)
   bool isDone;
 
@@ -18,7 +18,7 @@ class TodoModel extends HiveObject {
     this.id,
     required this.title,
     required this.dateTime,
-    this.isDone = true,
+    this.isDone = false,
   });
 
   @override
@@ -36,7 +36,7 @@ class TodoModel extends HiveObject {
 
   @override
   String toString() {
-    return 'Todo{ id: $id, title: $title, dateTime: $dateTime, isDone: $isDone,}';
+    return 'TodoModel{ id: $id, title: $title, dateTime: $dateTime, isDone: $isDone,}';
   }
 
   TodoModel copyWith({
@@ -57,19 +57,18 @@ class TodoModel extends HiveObject {
     return {
       'id': id,
       'title': title,
-      'dateTime': dateTime.toIso8601String(),
-      'isDone': isDone ? 0 : 1,
+      'dateTime': dateTime,
+      'isDone': isDone,
     };
   }
 
   factory TodoModel.fromJson(Map<String, dynamic> json) {
     return TodoModel(
-        id: json['id'] as int?,
-        title: json['title'] as String,
-        dateTime: DateTime.parse(
-          json['dateTime'] as String,
-        ),
-        isDone: (json['isDone'] as int) == 1);
+      id: json['id'] as int,
+      title: json['title'] as String,
+      dateTime: json['dateTime'] as DateTime,
+      isDone: json['isDone'] as bool,
+    );
   }
 
 //</editor-fold>
