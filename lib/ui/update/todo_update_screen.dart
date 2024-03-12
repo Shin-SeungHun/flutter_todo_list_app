@@ -13,6 +13,17 @@ class TodoUpdateScreen extends StatefulWidget {
 
 class _TodoUpdateScreenState extends State<TodoUpdateScreen> {
   final TextEditingController _textEditingController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.microtask(() {
+      final TodoUpdateViewModel viewModel = context.read<TodoUpdateViewModel>();
+      _textEditingController.text = viewModel.todo.title;
+    });
+  }
+
   @override
   void dispose() {
     _textEditingController.dispose();
@@ -24,7 +35,7 @@ class _TodoUpdateScreenState extends State<TodoUpdateScreen> {
     final viewModel = context.watch<TodoUpdateViewModel>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('add'),
+        title: const Text('update'),
       ),
       body: Column(
         children: [
@@ -43,11 +54,13 @@ class _TodoUpdateScreenState extends State<TodoUpdateScreen> {
           const Spacer(),
           ElevatedButton(
             onPressed: () async {
-                TodoModel todo = TodoModel(
-                  title: _textEditingController.text,
-                  dateTime: DateTime.now(),
-                );
-              context.push('/');
+              TodoModel todo = TodoModel(
+                id: viewModel.todo.id,
+                title: _textEditingController.text,
+                dateTime: DateTime.now(),
+              );
+              viewModel.updateTodoList(todo: todo);
+              context.pop();
             },
             child: const Text('저장'),
           ),

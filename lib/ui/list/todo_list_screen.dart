@@ -45,30 +45,28 @@ class _TodoListScreenState extends State<TodoListScreen> {
                     setState(() {
                       todo.isDone = value ?? false;
                     });
-                   await viewModel.checkTodoList(todo: todo);
-
+                    await viewModel.checkTodoList(todo: todo);
                   },
                 ),
-                title: Text(
-                  todo.title.toString(),
-                  style: TextStyle(
-                    decoration: todo.isDone ? TextDecoration.lineThrough : null,
-                    decorationColor: Colors.grey,
-                    decorationThickness: 3.0,
+                title: GestureDetector(
+                  onTap: () async {
+                    await context.push('/update', extra: todo);
+                  },
+                  child: Text(
+                    todo.title.toString(),
+                    style: TextStyle(
+                      decoration: todo.isDone ? TextDecoration.lineThrough : null,
+                      decorationColor: Colors.grey,
+                      decorationThickness: 3.0,
+                    ),
                   ),
                 ),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     IconButton(
-                      onPressed: () async {
-                        await context.push('/update', extra: todo);
-                      },
-                      icon: const Icon(Icons.edit),
-                    ),
-                    IconButton(
-                      onPressed: ()  {
-                         viewModel.deleteTodoList(todo: todo);
+                      onPressed: () {
+                        viewModel.deleteTodoList(todo: todo);
                       },
                       icon: const Icon(Icons.delete),
                     ),
